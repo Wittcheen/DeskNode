@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
+import { initModels } from './models/initialize.js';
 
 dotenv.config();
 
@@ -13,11 +14,12 @@ class Database {
             database: process.env.DB_NAME,
             port: process.env.DB_PORT
         });
+        initModels(this.sequelize);
     }
 
-    async sync() {
+    async sync(force) {
         try {
-            await this.sequelize.sync({ force: false });
+            await this.sequelize.sync({ force: force });
             console.log("Database synced successfully!");
         } catch (error) {
             throw error;
@@ -31,10 +33,6 @@ class Database {
         } catch (error) {
             throw error;
         }
-    }
-
-    getSequelizeInstance() {
-        return this.sequelize;
     }
 }
 

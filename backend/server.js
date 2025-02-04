@@ -10,7 +10,7 @@ app.use(express.json());
 async function startServer(sync) {
     try {
         await database.authenticate();
-        if (sync) { await database.sync(); }
+        if (sync) { await database.sync(true); }
         app.listen(port, () => {
             console.log(`Server running at http://localhost:${port}`);
             new Swagger().setup(app, port);
