@@ -1,5 +1,5 @@
 import express from 'express';
-import database from './src/database.js';
+import database from './src/utils/database.js';
 import Swagger from './swagger.js';
 
 const app = express();

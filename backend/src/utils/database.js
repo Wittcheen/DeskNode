@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-import { initModels } from './models/.initialize.js';
+import { initModels } from '../models/.initialize.js';
 
 dotenv.config();
 
@@ -18,21 +18,13 @@ class Database {
     }
 
     async sync(force) {
-        try {
-            await this.sequelize.sync({ force: force });
-            console.log("Database synced successfully!");
-        } catch (error) {
-            throw error;
-        }
+        await this.sequelize.sync({ force: force });
+        console.log("Database synced successfully!");
     }
 
     async authenticate() {
-        try {
-            await this.sequelize.authenticate();
-            console.log("Database connection established successfully!");
-        } catch (error) {
-            throw error;
-        }
+        await this.sequelize.authenticate();
+        console.log("Database connection established successfully!");
     }
 }
 
