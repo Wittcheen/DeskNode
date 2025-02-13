@@ -1,4 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
+import { ACCOUNT_STATUS } from '../utils/constants.js';
 
 class User extends Model {
     static initialize(sequelize) {
@@ -28,7 +29,14 @@ class User extends Model {
             password: {
                 field: "password",
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: false,
+                defaultValue: ""
+            },
+            accountStatus: {
+                field: "account_status",
+                type: DataTypes.ENUM(...Object.values(ACCOUNT_STATUS)), // Spreads the ENUM values
+                allowNull: false,
+                defaultValue: ACCOUNT_STATUS.CHANGE_PASSWORD
             }
         }, {
             sequelize,
