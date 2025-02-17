@@ -1,6 +1,6 @@
 import express from 'express';
 import database from './src/utils/database.js';
-import Swagger from './swagger.js';
+import Swagger from './swagger/swagger.js';
 
 const app = express();
 const port = 3000;
@@ -13,7 +13,7 @@ async function startServer(sync) {
         if (sync) { await database.sync(true); }
         app.listen(port, () => {
             console.log(`Server running at http://localhost:${port}`);
-            new Swagger().setup(app, port);
+            new Swagger().setup(app, port, express.static);
         });
     } catch (error) {
         console.error(`Error starting the server: ${error.message}`);
