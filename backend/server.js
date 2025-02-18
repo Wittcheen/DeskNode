@@ -1,11 +1,13 @@
 import express from 'express';
 import database from './src/utils/database.js';
+import { initRoutes } from './src/routes/.initialize.js';
 import Swagger from './swagger/swagger.js';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+initRoutes(app);
 
 async function startServer(sync) {
     try {
