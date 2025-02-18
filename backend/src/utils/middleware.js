@@ -1,3 +1,5 @@
+import rateLimit from 'express-rate-limit';
+
 class Middleware {
     static asyncHandler(func) {
         return (req, res, next) => {
@@ -7,6 +9,12 @@ class Middleware {
             });
         };
     }
+
+    static rateLimiter = rateLimit({
+        max: 100, windowMs: 5 * 60 * 1000, // 5 minutes
+        message: "You have exceeded the 100 requests in 5 minutes limit!",
+        standardHeaders: true, legacyHeaders: false
+    });
 }
 
 export default Middleware;
