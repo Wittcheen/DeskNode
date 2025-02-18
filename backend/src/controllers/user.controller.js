@@ -6,6 +6,9 @@ class UserController {
         if (![firstName, lastName, email].every(Boolean)) {
             return res.sendStatus(400);
         }
+        if (await UserService.getByEmail(email)) {
+            return res.sendStatus(409);
+        }
         await UserService.create({ firstName, lastName, email });
         return res.sendStatus(201);
     }
