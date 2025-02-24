@@ -1,4 +1,5 @@
 import User from '../models/user.model.js';
+import { DTO_TYPES, DTOFactory } from '../dtos/.factory.js';
 import { ACCOUNT_STATUS } from '../utils/constants.js';
 import PasswordManager from '../utils/password.js';
 
@@ -8,11 +9,13 @@ class UserService {
     }
 
     async getAll() {
-        return await User.findAll();
+        const users = await User.findAll();
+        return users.map(user => DTOFactory.create(DTO_TYPES.USER, user));
     }
 
     async getByEmail(email) {
-        return await User.findOne({ where: { email } });
+        const user = await User.findOne({ where: { email } });
+        return DTOFactory.create(DTO_TYPES.USER, user);
     }
 
     async update(id, data) {
